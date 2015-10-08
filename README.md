@@ -8,4 +8,5 @@ Clone the repository
 * cd MediaQC/qcapp
 * npm install (first time)
 * node bin/www
+* http://localhost:3000
 
