@@ -1,5 +1,6 @@
 var express = require('express');
 var model = require("../models/video");
+var aws = require("../controller/aws");
 var router = express.Router();
 
 /* GET users listing. */
@@ -20,11 +21,18 @@ router.get('/:id(\\d+)/', function (req, res){
 });
 
 router.get('/:id(\\d+)/qc/initate', function (req, res){
-  res.send("Initiate" + req.params.id);
+  var msg = {"id": req.params.id, "when": new Date()};
+  aws.send(JSON.stringify(msg));
+  res.send("Initiated and Queued" + req.params.id);
 });
 
 router.get('/:id(\\d+)/qc/status', function (req, res){
   res.send("Status"  + req.params.id);
+});
+
+router.get('/pickup', function (req, res){
+  aws.recieve();
+  res.send("Picked");
 });
 
 router.get('/:id(\\d+)/qc/report', function (req, res){
