@@ -3,3 +3,11 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  
+  div.urllist 
+    a(href="/video") List of Videos
+    a(href="/video/list") List of Videos JSON
+    a(href="/video/123/qc/report") QC Report of a Video
+    a(href="/video/123/qc/initate") Initiate Service for a video
+    a(href="/video/123/qc/status") Status Service for 123 (JSON)
+    a(href="/video/123/qc/reportdata") Report Service for a video (JSON)

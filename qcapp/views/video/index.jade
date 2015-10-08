@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  h1  Transcoded Video List
+  
+  div.vlist
+    each v in videos
+      div.videoitem
+        div.id ID #{v.id}
+        div.title Video #{v.Title}
+        div.duration Duration #{v.id}

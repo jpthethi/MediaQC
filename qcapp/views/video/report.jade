@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1  Video QC Report
+  
+  div Video QC Report for #{report.videoid}
+  div.plist
+      each p in report.Parameters
+        div.parameter
+          div #{p.desc}
