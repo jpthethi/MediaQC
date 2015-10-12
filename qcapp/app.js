@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var video = require('./routes/video');
-
+var aws = require("./controller/aws");
+var qc = require("./controller/qc");
 var app = express();
 
 // view engine setup
@@ -59,5 +60,12 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var server = require('http').createServer(app);
+//when the server starts we are going to start SQS polling
+server.listen(80, function() {
+    console.log('server is up!');
+    setInterval(aws.recieve, 5000, qc.startqc);
+//    setInterval(aws.testrecieve, 5000, qc.startqc);
+});
 
 module.exports = app;

@@ -4,6 +4,10 @@ block content
   h1  Video QC Report
   
   div Video QC Report for #{report.videoid}
+  img(src="/images/bitrate-ssim.jpg")
+  img(src="/images/bpp-psnr.jpg")
+  img(src="/images/bpp.jpg")
+  img(src="/images/noiseamp.jpg")
   div.plist
       each p in report.Parameters
         div.parameter
