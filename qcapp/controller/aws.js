@@ -1,7 +1,7 @@
 AWS = require("aws-sdk");
 AWS.config.update({region:'us-east-1'});
-AWS.config.update({accessKeyId: 'AKIAIEUAO5UPBSQLLQUQ', secretAccessKey: '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'});
-var sqs = new AWS.SQS();
+var creds = new AWS.SharedIniFileCredentials({ profile: 'mqc' });
+var sqs = new AWS.SQS({credentials: creds});
 var qurl = "https://sqs.us-east-1.amazonaws.com/940843378204/qcrequest";
 var params = {
   QueueUrl: qurl, /* required */
