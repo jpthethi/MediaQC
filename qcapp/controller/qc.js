@@ -1,4 +1,4 @@
-var async = require('async');
+//var async = require('async');
 /**
  * This function does the actual QC job.
  * 
