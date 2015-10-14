@@ -65,7 +65,6 @@ var server = require('http').createServer(app);
 server.listen(80, function() {
     console.log('server is up!');
     setInterval(aws.recieve, 5000, qc.startqc);
-//    setInterval(aws.testrecieve, 5000, qc.startqc);
 });
 
 module.exports = app;

@@ -2,7 +2,7 @@ var express = require('express');
 var model = require("../models/video");
 var aws = require("../controller/aws");
 var router = express.Router();
-
+var di = require("../controller/datainitializer");
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('video/index', {videos: videolist()});
@@ -43,6 +43,10 @@ router.get('/:id(\\d+)/qc/reportdata', function (req, res){
   res.send(report(req.params.id));
 });
 
+// this is just to store videos on S3
+router.get('/uploadVideos', function(req, res, next) {
+	di.storeVideosInS3();
+});
 
 function videolist(){
 var list = [];
