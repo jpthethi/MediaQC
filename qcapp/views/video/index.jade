@@ -2,13 +2,23 @@ extends ../layout
 
 block content
   h1  Transcoded Video List
-  
+  a(href='/video') Refresh
   div.vlist
     each v in videos
       div.videoitem
         div.id ID #{v.id}
         div.title Video #{v.Title}
         div.duration Duration #{v.id}
-        a(href='/video/#{v.id}/qc/initate') Initiate
+        if !v.initiated
+          a(href='/video/#{v.id}/qc/initate') Initiate
+        else if !v.reportAvailable
+          div.initiate Initiated
+        else
+          div.initiate -
         div.report
-        a(href='/video/#{v.id}/qc/report') Report
+        if v.reportAvailable
+          a(href='/video/#{v.id}/qc/report') Report
+        else
+          div.report -
+        //div.report
+        //Initiated #{v.initiated}

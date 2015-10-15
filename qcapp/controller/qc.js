@@ -1,6 +1,7 @@
 var async = require('async');
 var aws = require("./aws");
 var constants = require("./constants");
+var dm = require("./datamanager");
 var exec = require('child_process').exec;
 
 /**
@@ -28,6 +29,7 @@ function startqc(msg) {
 
 	// start QC tool async
 	async.series([ function(callback) {
+		// both the downloads are in parallel.
 		async.parallel([ function(callback) {
 			fetchAndStoreObject(id, function() {
 				callback();
@@ -38,7 +40,9 @@ function startqc(msg) {
 				callback();
 			});
 		} ], callback)
-	}, function(callback) {
+	},
+	// QC is invoked after both the files have been downloaded.
+	function(callback) {
 		invokeQc(getPath(id), getPath(tid), id);
 	} ]);
 
@@ -48,17 +52,26 @@ function startqc(msg) {
 
 }
 
-
 function invokeQc(pathOfOriginalFile, pathOfTranscodedFile, id) {
 	console.log("invoking " + constants.toolPath);
 	var cmd = constants.toolPath + " -f " + pathOfOriginalFile + " -f "
-			+ pathOfTranscodedFile
-			+ " -metr psnr -cc YYUV  -sc 1 -cng CUSTOM results-" + id
-			+ ".csv -cod " + constants.defaultPath;
+			+ pathOfTranscodedFile + " -metr psnr -cc YYUV  -sc 1 -cng CUSTOM "
+			+ getResultsFileName(id) + " -cod " + constants.defaultPath;
 	exec(cmd, function(err, data) {
-		console.log("err:" + err)
-		console.log("data:" + data.toString());
+		if(err){
+			console.log("err:" + err)
+		}
+		if(data){
+			dm.reportAvailable(id);	
+			console.log("data:" + data.toString());
+		}
+		
 	});
+}
+
+function getResultsFileName(id) {
+	return constants.resultFilePrefix + "-" + id + "."
+			+ constants.resultFileSuffix;
 }
 
 function storeQcResults(id, results) {
@@ -76,7 +89,6 @@ function getTranscodedVideoId(id) {
 function getPath(key) {
 	return constants.defaultPath + key
 }
-
 
 exports.startqc = startqc;
 exports.getTranscodedVideoId = getTranscodedVideoId;

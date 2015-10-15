@@ -6,9 +6,12 @@ function define(name, value) {
 }
 
 define("transcodedFileIdSuffix", "-t");
+define("resultFilePrefix","results")
+define("resultFileSuffix","csv")
 define("defaultPath","/tmp/");
 define("defaultBucket","mediaqc");
 define("toolPath","path to QC tool");
 define("useProxy",false);
 define("proxy","http://<host>:<port>");
+
 

@@ -3,6 +3,8 @@ function Video()
   this.id  = -1;
   this.Title = "";
   this.Size = "";
+  this.initiated=false;
+  this.reportAvailable=false;
 }
 
 function Report()

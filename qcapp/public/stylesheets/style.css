@@ -11,7 +11,7 @@ a {
 .videoitem .id {width:80px; display:inline-block}
 .videoitem .title {width:150px; display:inline-block}
 .videoitem .duration {width:100px; display:inline-block}
-.videoitem .initiate {width:100px; display:inline-block}
-.videoitem .report {width:30px; display:inline-block}
+.videoitem .initiate {width:100px; display:inline}
+.videoitem .report {width:100px; display:inline-block}
 
 .urllist a {display:block; padding-bottom: 10px;}

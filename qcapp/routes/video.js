@@ -1,16 +1,18 @@
 var express = require('express');
 var model = require("../models/video");
 var aws = require("../controller/aws");
-var router = express.Router();
+var dm = require("../controller/datamanager");
 var di = require("../controller/datainitializer");
+var router = express.Router();
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('video/index', {videos: videolist()});
+  res.render('video/index', {videos: dm.getVideoList()});
 });
 
 /* GET users listing. */
 router.get('/list', function(req, res, next) {
-  res.send(videolist());
+  res.send(dm.getVideoList());
 });
 
 router.get('/:id(\\d+)/', function (req, res){
@@ -22,8 +24,13 @@ router.get('/:id(\\d+)/', function (req, res){
 
 router.get('/:id(\\d+)/qc/initate', function (req, res){
   var msg = {"id": req.params.id, "when": new Date()};
-  aws.send(JSON.stringify(msg));
-  res.send("Initiated and Queued" + req.params.id);
+  if(!dm.isQcInitiated(req.params.id)){
+	  aws.send(JSON.stringify(msg));
+	  dm.qcInitiated(req.params.id);
+	  console.log("modified videolist :"+dm.getVideoList());
+  }
+  res.render('video/index', {videos: dm.getVideoList()});
+  //res.send("Initiated and Queued" + req.params.id);
 });
 
 router.get('/:id(\\d+)/qc/status', function (req, res){
@@ -47,17 +54,6 @@ router.get('/:id(\\d+)/qc/reportdata', function (req, res){
 router.get('/uploadVideos', function(req, res, next) {
 	di.storeVideosInS3();
 });
-
-function videolist(){
-var list = [];
-  for(i=1;i<10;i++){
-    var m = new model.Video();
-    m.id =i;
-    m.Title = "Video " + i;
-    list.push(m);
-  }
-  return list;
-}
 
 function report(id){
   var rep = new model.Report();
