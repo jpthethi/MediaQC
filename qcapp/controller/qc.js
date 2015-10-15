@@ -22,34 +22,30 @@ function startqc(msg) {
 	console.log("id is " + id);
 
 	// get transcoded video id using the original video id
-	var tid = getTranscodedVideoId(id);
+	var tid = dm.getTranscodedVideoId(id);
 	console.log("transcoded id is " + tid);
 	// download and store videos (original and transcoded) on local fs for
 	// processing by QC tool
 
 	// start QC tool async
 	async.series([ function(callback) {
-		// both the downloads are in parallel.
+		// both the downloads are in parallel
+
 		async.parallel([ function(callback) {
 			fetchAndStoreObject(id, function() {
 				callback();
 			});
-
 		}, function(callback) {
 			fetchAndStoreObject(tid, function() {
 				callback();
 			});
 		} ], callback)
 	},
+
 	// QC is invoked after both the files have been downloaded.
 	function(callback) {
 		invokeQc(getPath(id), getPath(tid), id);
 	} ]);
-
-	// store processing status in-memory / db
-
-	// store the results back to S3
-
 }
 
 function invokeQc(pathOfOriginalFile, pathOfTranscodedFile, id) {
@@ -58,14 +54,21 @@ function invokeQc(pathOfOriginalFile, pathOfTranscodedFile, id) {
 			+ pathOfTranscodedFile + " -metr psnr -cc YYUV  -sc 1 -cng CUSTOM "
 			+ getResultsFileName(id) + " -cod " + constants.defaultPath;
 	exec(cmd, function(err, data) {
-		if(err){
+		if (err) {
 			console.log("err:" + err)
 		}
-		if(data){
-			dm.reportAvailable(id);	
+		if (data) {
+			// store the results back to S3
+			// storing some dummy data as of now
+			storeQcResults(dm.getReportId(id), JSON.stringify({
+				"param1" : "value1",
+				"param2" : "value2",
+				"param3" : "value3"
+			}));
+			dm.reportAvailable(id);
 			console.log("data:" + data.toString());
 		}
-		
+
 	});
 }
 
@@ -82,13 +85,8 @@ function fetchAndStoreObject(id, fn) {
 	aws.fetchAndStoreObject(null, id, fn);
 }
 
-function getTranscodedVideoId(id) {
-	return id + constants.transcodedFileIdSuffix;
-}
-
 function getPath(key) {
 	return constants.defaultPath + key
 }
 
 exports.startqc = startqc;
-exports.getTranscodedVideoId = getTranscodedVideoId;
