@@ -29,7 +29,9 @@ function startqc(msg) {
 	// processing by QC tool
 
 	// start QC tool async
-	async.series([ function(callback) { // both the downloads are in parallel
+	async.series([
+	// both the downloads are in parallel
+	function(callback) {
 
 		async.parallel([ function(callback) {
 			fetchAndStoreObject(id, function() {
@@ -103,18 +105,18 @@ function invokeQc(pathOfOriginalFile, pathOfTranscodedFile, id) {
 function createResults(id, psnrAvg) {
 	var status = constants.failureResult;
 	var results = {
-		"videoId" : id,
+		"videoid" : id,
 		"runDate" : new Date()
 	};
 
 	if (psnrAvg !== null && psnrAvg > constants.psnrThreshold) {
 		status = constants.successResult;
-		results["parameters"] = [ {
+		results[constants.reportParameters] = [ {
 			"key" : constants.psnrKey,
 			"value" : psnrAvg
 		} ];
 	}
-	results["status"] = status;
+	results[constants.reportStatus] = status;
 	return results;
 }
 

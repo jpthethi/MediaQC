@@ -67,6 +67,7 @@ router.get('/:id(\\d+)/qc/reportdata', function(req, res) {
 // this is just to store videos on S3
 router.get('/uploadVideos', function(req, res, next) {
 	di.storeVideosInS3();
+	res.send("Upload started in background..");
 });
 
 module.exports = router;

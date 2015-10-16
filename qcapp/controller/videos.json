@@ -1,0 +1,47 @@
+[
+    {
+        "id":"1",
+        "title": "Burj Khalifa",
+        "originalMediaFile": "BurjKhalifaPinnacleBASEJump4K",
+        "originalMediaFileLocation": "/tmp/videos",
+        "originalMediaFileFormat": "avi",
+        "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K",
+        "transcodedMediaFileLocation": "/tmp/videos",
+        "transcodedMediaFileFormat": "mp4",
+        "dateOfTranscoding": ""
+    },
+    {
+        "id":"2",
+        "title": "Burj Khalifa 2",
+        "originalMediaFile": "BurjKhalifaPinnacleBASEJump4K2",
+        "originalMediaFileLocation": "/tmp/videos",
+        "originalMediaFileFormat": "avi",
+        "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K2",
+        "transcodedMediaFileLocation": "/tmp/videos",
+        "transcodedMediaFileFormat": "mp4",
+        "dateOfTranscoding": ""
+    },
+    {
+        "id":"3",
+        "title": "Burj Khalifa 3",
+        "originalMediaFile": "BurjKhalifaPinnacleBASEJump4K3",
+        "originalMediaFileLocation": "/tmp/videos",
+        "originalMediaFileFormat": "avi",
+        "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K3",
+        "transcodedMediaFileLocation": "/tmp/videos",
+        "transcodedMediaFileFormat": "mp4",
+        "dateOfTranscoding": ""
+    },
+    {
+        "id":"4",
+        "title": "Burj Khalifa 4",
+        "originalMediaFile": "BurjKhalifaPinnacleBASEJump4K4",
+        "originalMediaFileLocation": "/tmp/videos",
+        "originalMediaFileFormat": "avi",
+        "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K4",
+        "transcodedMediaFileLocation": "/tmp/videos",
+        "transcodedMediaFileFormat": "mp4",
+        "dateOfTranscoding": ""
+    }
+    
+]

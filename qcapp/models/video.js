@@ -1,11 +1,16 @@
 function Video()
 {
   this.id  = -1;
-  this.Title = "";
-  this.Size = "";
+  this.title = "";
+  this.originalMediaFile="";
+  this.originalMediaFileLocation="";
+  this.originalMediaFileFormat = "";
+  this.transcodedMediaFile="";
+  this.transcodedMediaFileLocation="";
+  this.transcodedMediaFileFormat = "";
+  this.dateOfTranscoding="";
+  //this.Size = "";
   this.initiated=false;
-  //this.reportAvailable=false;
-  //this.success=false;
   this.report = null;
 }
 

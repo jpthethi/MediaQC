@@ -6,17 +6,30 @@
 var model = require("../models/video");
 var aws = require("./aws");
 var constants = require("./constants");
+var fs = require('fs');
 var videos = [];
 
 function initializeVideoList() {
-	for (i = 1; i < 10; i++) {
-		var m = new model.Video();
-		m.id = i;
-		m.Title = "Video " + i;
-		videos.push(m);
-	}
-	return videos;
+	
+	fs.readFile('./controller/videos.json', 'utf8', function (err,data) {
+		  if (err) {
+		    return console.log(err);
+		  }else{
+			  //console.log(data);
+			  videos = JSON.parse(data);
+			  //console.log("vidoes :"+videos);
+				for (i = 0; i < videos.length; i++) {
+				var m = videos[i];
+				m["dateOfTranscoding"] = new Date();
+				m["report"] = null;
+			}
+		  }
+		  
+		});
 }
+
+
+
 
 function getVideoList() {
 	return videos;
@@ -67,11 +80,12 @@ function getReport(id, reportObjectRequired, fn) {
  */
 function resultsToReport(results) {
 	var reportData = JSON.parse(results);
+	console.log("reportData from AWS :"+JSON.stringify(reportData));
 	var report = new model.Report();
-	report.videoid = reportData["videoid"];
-	report.runDate = reportData["runDate"];
-	report.status = reportData["status"];
-	report.parameters = reportData["parameters"];
+	report.videoid = reportData[constants.reportVideoid];
+	report.runDate = reportData[constants.reportRunDate];
+	report.status = reportData[constants.reportStatus];
+	report.parameters = reportData[constants.reportParameters];
 	console.log("report is :" + JSON.stringify(report));
 	return report;
 }

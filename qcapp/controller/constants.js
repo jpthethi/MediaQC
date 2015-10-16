@@ -4,6 +4,12 @@ function define(name, value) {
         enumerable: true
     });
 }
+//reporting json params
+define("reportVideoid","videoid");
+define("reportRunDate","runDate");
+define("reportParameters","parameters");
+define("reportStatus","status");
+//reporting json params ends
 define("psnrThreshold",35);
 define("successResult","Success");
 define("failureResult","Failure");

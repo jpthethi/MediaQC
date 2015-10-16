@@ -1,6 +1,7 @@
 var aws = require("./aws");
 var fs = require('fs');
 var qc = require("./qc");
+var dm = require("./datamanager");
 
 var videoMetadata = [ {
 	key : "1",
@@ -10,6 +11,14 @@ var videoMetadata = [ {
 	key : "2",
 	originalFile : "BurjKhalifaPinnacleBASEJump4K2.avi",
 	transcodedFile : "BurjKhalifaPinnacleBASEJump4K2.mp4"
+}, {
+	key : "3",
+	originalFile : "BurjKhalifaPinnacleBASEJump4K3.avi",
+	transcodedFile : "BurjKhalifaPinnacleBASEJump4K3.mp4"
+}, {
+	key : "4",
+	originalFile : "BurjKhalifaPinnacleBASEJump4K4.avi",
+	transcodedFile : "BurjKhalifaPinnacleBASEJump4K4.mp4"
 } ]
 
 function storeVideosInS3() {
@@ -22,7 +31,7 @@ function storeVideosInS3() {
 
 function storeVideoInS3(key, originalFile, transcodedFile) {
 	uploadFileContents(key, originalFile);
-	uploadFileContents(qc.getTranscodedVideoId(key), transcodedFile);
+	uploadFileContents(dm.getTranscodedVideoId(key), transcodedFile);
 }
 
 function uploadFileContents(key, fileName) {
