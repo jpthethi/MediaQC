@@ -49,19 +49,17 @@ router.get('/pickup', function(req, res) {
 });
 
 router.get('/:id(\\d+)/qc/report', function(req, res) {
-	dm.getReport(req.params.id, function(data) {
-		var reportData = JSON.parse(data);
-		var report = new model.Report();
-		report.videoid = req.params.id;
+	dm.getReport(req.params.id, true ,function(data) {
+		
 		res.render('video/report', {
-			report : report
+			report : data
 		});
 	});
 
 });
 
 router.get('/:id(\\d+)/qc/reportdata', function(req, res) {
-	dm.getReport(req.params.id, function(data) {
+	dm.getReport(req.params.id, false,function(data) {
 		res.send(data);
 	});
 });

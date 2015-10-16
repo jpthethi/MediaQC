@@ -9,6 +9,6 @@ block content
   img(src="/images/bpp.jpg")
   img(src="/images/noiseamp.jpg")
   div.plist
-      each p in report.Parameters
+      each p in report.parameters
         div.parameter
-          div #{p.desc}
+          div #{p.key} #{p.value}

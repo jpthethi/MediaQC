@@ -11,12 +11,12 @@ block content
         div.duration Duration #{v.id}
         if !v.initiated
           a(href='/video/#{v.id}/qc/initate') Initiate
-        else if !v.reportAvailable
+        else if v.report === null
           div.initiate Initiated
         else
           div.initiate -
         div.report
-        if v.reportAvailable
+        if v.report != null
           a(href='/video/#{v.id}/qc/report') Report
         else
           div.report -

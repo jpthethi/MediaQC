@@ -3,7 +3,8 @@ var aws = require("./aws");
 var constants = require("./constants");
 var dm = require("./datamanager");
 var exec = require('child_process').exec;
-
+var csvToJson = require("csvtojson");
+var fs = require("fs");
 /**
  * This function does the actual QC job.
  * 
@@ -28,8 +29,7 @@ function startqc(msg) {
 	// processing by QC tool
 
 	// start QC tool async
-	async.series([ function(callback) {
-		// both the downloads are in parallel
+	async.series([ function(callback) { // both the downloads are in parallel
 
 		async.parallel([ function(callback) {
 			fetchAndStoreObject(id, function() {
@@ -53,23 +53,69 @@ function invokeQc(pathOfOriginalFile, pathOfTranscodedFile, id) {
 	var cmd = constants.toolPath + " -f " + pathOfOriginalFile + " -f "
 			+ pathOfTranscodedFile + " -metr psnr -cc YYUV  -sc 1 -cng CUSTOM "
 			+ getResultsFileName(id) + " -cod " + constants.defaultPath;
-	exec(cmd, function(err, data) {
-		if (err) {
-			console.log("err:" + err)
-		}
-		if (data) {
-			// store the results back to S3
-			// storing some dummy data as of now
-			storeQcResults(dm.getReportId(id), JSON.stringify({
-				"param1" : "value1",
-				"param2" : "value2",
-				"param3" : "value3"
-			}));
-			dm.reportAvailable(id);
-			console.log("data:" + data.toString());
-		}
+	exec(cmd,
+			function(err, data) {
+				if (err) {
+					console.log("err:" + err);
+					/**
+					 * passing null for results means we are going to get
+					 * failure Report object.
+					 */
+					dm.reportAvailable(id, JSON
+							.stringifycreateResults(id, null));
+				}
+				if (data) {
+					// store the results back to S3
+					console.log("data:" + data.toString());
+					var resultFilePath = constants.defaultPath
+							+ getResultsFileName(id);
+					console.log("processing file :" + resultFilePath);
+					var Converter = csvToJson.Converter;
+					var converter = new Converter({});
 
-	});
+					// end_parsed will be emitted once parsing finished
+					converter.on("end_parsed", function(jsonArray) {
+						// console.log(jsonArray); //here is your result
+						// jsonarray
+						var avg = jsonArray[2]["PSNR_YYUV"].replace("AVG:", "")
+								.trim();
+
+						console.log("psnr value is :" + avg);
+
+						var results = createResults(id, parseFloat(avg));
+						console.log("results :" + JSON.stringify(results));
+						storeQcResults(dm.getReportId(id), JSON
+								.stringify(results));
+						dm.reportAvailable(id, JSON.stringify(results));
+					});
+
+					// read from file
+					fs.createReadStream(resultFilePath).pipe(converter);
+				}
+
+			});
+}
+
+/**
+ * { "videoId": 1, "runDate": "", "status": "success", "parameters": [ { "key":
+ * "psnr", "value": "33" } ] }
+ */
+function createResults(id, psnrAvg) {
+	var status = constants.failureResult;
+	var results = {
+		"videoId" : id,
+		"runDate" : new Date()
+	};
+
+	if (psnrAvg !== null && psnrAvg > constants.psnrThreshold) {
+		status = constants.successResult;
+		results["parameters"] = [ {
+			"key" : constants.psnrKey,
+			"value" : psnrAvg
+		} ];
+	}
+	results["status"] = status;
+	return results;
 }
 
 function getResultsFileName(id) {
