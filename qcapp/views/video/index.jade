@@ -4,44 +4,44 @@ block content
     
   a(href='/video')
     img(src="/images/refresh.png")
-    table.table.table-striped.table-bordered.table-hover
-      thead
-        tr
-          th.text-center(style='color: orange') Id
-          th.text-center(style='color: orange') Date of transcoding
-          th.text-center(style='color: orange') Original media file & location
-          th.text-center(style='color: orange') Original format
-          th.text-center(style='color: orange') Transcoded media file & location
-          th.text-center(style='color: orange') Transcoded format
-          th.text-center(style='color: orange') Quality check status
-          th.text-center(style='color: orange') Report
-      tbody
-        each v in videos
-          div.videoitem
-            tr
-              td.text-center #{v.id}
-              td #{v.dateOfTranscoding.toUTCString()}
-              td #{v.originalMediaFile} #{v.originalMediaFileLocation} 
-              td.text-center #{v.originalMediaFileFormat}
-              td #{v.transcodedMediaFile} #{v.transcodedMediaFileLocation} 
-              td.text-center #{v.transcodedMediaFileFormat}
-              if !v.initiated
-                td.text-center
-                  a(href='/video/#{v.id}/qc/initate')
-                    img(src="/images/start.png")
-              else if v.report === null
-                td.div.initiate.text-center
-                  img(src="/images/processing.gif")
-              else if v.report.status== "Success"
-                td.div.initiate.text-center
-                  img(src="/images/success.png")
-              else
-                td.div.initiate.text-center
-                  img(src="/images/failure.gif")
-              if v.report != null
-                td
-                  a(href='/video/#{v.id}/qc/report')
-                    img(src="/images/report.gif")
-              else
-                td.div.report.text-center.
-                  -    
+  table.table.table-custom
+    thead
+      tr
+        th.text-center(style='color: orange') Id
+        th.text-center(style='color: orange') Date of transcoding
+        th.text-center(style='color: orange') Original media file & location
+        th.text-center(style='color: orange') Original format
+        th.text-center(style='color: orange') Transcoded media file & location
+        th.text-center(style='color: orange') Transcoded format
+        th.text-center(style='color: orange') Quality check status
+        th.text-center(style='color: orange') Report
+    tbody
+      each v in videos
+        div.videoitem
+          tr
+            td.text-center #{v.id}
+            td #{v.dateOfTranscoding}
+            td #{v.originalMediaFile} #{v.originalMediaFileLocation} 
+            td.text-center #{v.originalMediaFileFormat}
+            td #{v.transcodedMediaFile} #{v.transcodedMediaFileLocation} 
+            td.text-center #{v.transcodedMediaFileFormat}
+            if !v.initiated
+              td.text-center
+                a(href='/video/#{v.id}/qc/initate')
+                  img(src="/images/start.png")
+            else if v.report === null
+              td.div.initiate.text-center
+                img(src="/images/processing.gif")
+            else if v.report.status== "Success"
+              td.div.initiate.text-center
+                img(src="/images/success.png")
+            else
+              td.div.initiate.text-center
+                img(src="/images/failure.gif")
+            if v.report != null
+              td
+                a(href='/video/#{v.id}/qc/report')
+                  img(src="/images/report.gif")
+            else
+              td.div.report.text-center.
+                -    

@@ -25,9 +25,10 @@ html(lang='en')
       script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
       script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
   body
+   .wrapper
     .container
       // Static navbar
-      .navbar.navbar-default(role='navigation')
+      //.navbar.navbar-default(role='navigation')
         .container-fluid
           .navbar-header
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -35,17 +36,28 @@ html(lang='en')
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.navbar-brand(href='/') MediaQC
+            // a.navbar-brand(href='/') MediaQC
           .navbar-collapse.collapse
             ul.nav.navbar-nav
               li.active
-                a(href='/video') Videos
+                a(href='/video') All Videos
             ul.nav.navbar-nav.navbar-right
               img(src="/images/ooyala.svg")
           // /.nav-collapse
         // /.container-fluid
+      
+      .container-fluid
+        .row.space-bottom 
+          .col-lg-6.col-sm-12
+            a(href='/video').url-special All Videos
+          .col-lg-6.col-sm-12
+            img(src="/images/ooyala.svg").pull-right.logo-block
+      
+      // Page heading and elements
+      .page-head      
+        
       // Main component for a primary marketing message or call to action
-      .jumbotron
+      .inner
         block content
         
     // Bootstrap core JavaScript

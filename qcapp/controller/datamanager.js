@@ -10,26 +10,26 @@ var fs = require('fs');
 var videos = [];
 
 function initializeVideoList() {
-	
-	fs.readFile('./controller/videos.json', 'utf8', function (err,data) {
-		  if (err) {
-		    return console.log(err);
-		  }else{
-			  //console.log(data);
-			  videos = JSON.parse(data);
-			  //console.log("vidoes :"+videos);
-				for (i = 0; i < videos.length; i++) {
-				var m = videos[i];
-				m["dateOfTranscoding"] = new Date();
+
+	fs.readFile('./controller/videos.json', 'utf8', function(err, data) {
+		if (err) {
+			return console.log(err);
+		} else {
+			// console.log(data);
+			videos = JSON.parse(data);
+			// console.log("vidoes :"+videos);
+			for (i = 0; i < videos.length; i++) {
+				var m = videos[i], today = new Date();
+
+				m["dateOfTranscoding"] = today.toLocaleDateString("en-US");
 				m["report"] = null;
 			}
-		  }
-		  
-		});
+		}
+
+	});
 }
 
-
-function getVideo(id){
+function getVideo(id) {
 	return videos[id - 1];
 }
 
@@ -82,7 +82,7 @@ function getReport(id, reportObjectRequired, fn) {
  */
 function resultsToReport(results) {
 	var reportData = JSON.parse(results);
-	console.log("reportData from AWS :"+JSON.stringify(reportData));
+	console.log("reportData from AWS :" + JSON.stringify(reportData));
 	var report = new model.Report();
 	report.videoid = reportData[constants.reportVideoid];
 	report.runDate = reportData[constants.reportRunDate];

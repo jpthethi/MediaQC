@@ -1,8 +1,74 @@
+/**
+ * Alignments
+ */
+.space-top {
+	margin-top: 20px;
+}
+.space-bottom {
+	margin-bottom: 20px;
+}
+
+/**
+ * Template styles
+ */
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+.wrapper {
+	display: block;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	background: #323232;
+}
+.logo-block {
+	padding: 5px 10px;
+	background-color: #FFFFFD;
+}
+.url-special {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.url-special:hover{
+	color: orange;
+	text-decoration: none;
+}
+.page-head {
+	display: block;
+	padding: 5px 10px;
+	background-color: #F6F6F6;
+	-webkit-border-radius: 3px 3px 0 0;
+	-moz-border-radius: 3px 3px 0 0;
+	border-radius: 3px 3px 0 0;
+}
+.inner {
+	display: block;
+	padding: 20px 30px;
+	background: #ffffff;
+}
+.table-custom {
+	background-color: #ffffff;
+}
+.table-custom th {
+	border-right: 1px solid #eeeeee;
+	border-bottom: none !important;
+	vertical-align: middle !important;
+}
+.table-custom th:last-child {
+	border-right: none;
+}
+.table-custom tr:nth-child(odd) td {
+	background-color: #F9F9F9;
+}
+.table-custom td {
+	border-top: none !important;
+	border-right: 1px solid #eeeeee;
+}
+.table-custom td:last-child {
+	border-right: none;
+}
 a {
   color: #00B7FF;
 }
