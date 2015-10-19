@@ -9,7 +9,7 @@ function Video()
   this.transcodedMediaFileLocation="";
   this.transcodedMediaFileFormat = "";
   this.dateOfTranscoding="";
-  //this.Size = "";
+  this.size = "";
   this.initiated=false;
   this.report = null;
 }

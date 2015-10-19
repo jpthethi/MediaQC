@@ -1,14 +1,26 @@
 extends ../layout
 
 block content
-  h1  Video QC Report
-  
-  div Video QC Report for #{report.videoid}
-  img(src="/images/bitrate-ssim.jpg")
-  img(src="/images/bpp-psnr.jpg")
-  img(src="/images/bpp.jpg")
-  img(src="/images/noiseamp.jpg")
-  div.plist
-      each p in report.parameters
-        div.parameter
-          div #{p.key} #{p.value}
+
+  table.table.table-striped.table-bordered.table-hover.table-condensed
+      tbody
+        tr
+          td Media name: #{video.title}
+          td Transcoding format: #{video.originalMediaFileFormat} to #{video.transcodedMediaFileFormat}
+          td Size #{video.size}
+          td #{report.parameters[0]["value"]} %
+  table.table.table-striped.table-bordered.table-hover.table-condensed
+      tbody
+        tr
+          td
+            img(src="/images/msu-blocking.png")
+        tr  
+          td
+            img(src="/images/msu-blurring.png")
+        tr  
+          td
+            img(src="/images/apsnr.png")
+        tr  
+          td
+            img(src="/images/psnr.png")
+            

@@ -29,7 +29,9 @@ function initializeVideoList() {
 }
 
 
-
+function getVideo(id){
+	return videos[id - 1];
+}
 
 function getVideoList() {
 	return videos;
@@ -100,3 +102,4 @@ exports.isReportAvailable = isReportAvailable;
 exports.getReport = getReport;
 exports.getTranscodedVideoId = getTranscodedVideoId;
 exports.getReportId = getReportId;
+exports.getVideo = getVideo;

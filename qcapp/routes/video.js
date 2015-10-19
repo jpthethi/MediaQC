@@ -52,7 +52,8 @@ router.get('/:id(\\d+)/qc/report', function(req, res) {
 	dm.getReport(req.params.id, true ,function(data) {
 		
 		res.render('video/report', {
-			report : data
+			report : data,
+			video : dm.getVideo(req.params.id)
 		});
 	});
 

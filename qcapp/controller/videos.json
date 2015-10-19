@@ -8,7 +8,8 @@
         "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K",
         "transcodedMediaFileLocation": "/tmp/videos",
         "transcodedMediaFileFormat": "mp4",
-        "dateOfTranscoding": ""
+        "dateOfTranscoding": "",
+        "size":"3 mb"
     },
     {
         "id":"2",
@@ -19,7 +20,8 @@
         "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K2",
         "transcodedMediaFileLocation": "/tmp/videos",
         "transcodedMediaFileFormat": "mp4",
-        "dateOfTranscoding": ""
+        "dateOfTranscoding": "",
+        "size":"3 mb"
     },
     {
         "id":"3",
@@ -30,7 +32,8 @@
         "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K3",
         "transcodedMediaFileLocation": "/tmp/videos",
         "transcodedMediaFileFormat": "mp4",
-        "dateOfTranscoding": ""
+        "dateOfTranscoding": "",
+        "size":"3 mb"
     },
     {
         "id":"4",
@@ -41,7 +44,8 @@
         "transcodedMediaFile": "BurjKhalifaPinnacleBASEJump4K4",
         "transcodedMediaFileLocation": "/tmp/videos",
         "transcodedMediaFileFormat": "mp4",
-        "dateOfTranscoding": ""
+        "dateOfTranscoding": "",
+        "size":"3 mb"
     }
     
 ]
