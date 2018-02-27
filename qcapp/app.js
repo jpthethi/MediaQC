@@ -13,6 +13,7 @@ var qc = require("./controller/qc");
 var app = express();
 
 // view engine setup
+// We use jade
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
